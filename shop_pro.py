@@ -12,16 +12,13 @@ from aiogram.types import (
     WebAppInfo
 )
 from aiogram.enums import ParseMode
-from aiogram.client.default import DefaultBotProperties
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 BOT_TOKEN = "8679249764:AAHW_JtlsSi372LD2GltGfe41cuImhgnZqE"
 MANAGER_CHAT_ID = 8046596311  
-
-session = AiohttpSession(proxy="http://proxy.server:3128")
-bot = Bot(token=BOT_TOKEN, session=session, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
 def init_db():
