@@ -12,12 +12,14 @@ from aiogram.types import (
     WebAppInfo
 )
 from aiogram.enums import ParseMode
-from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 BOT_TOKEN = "8679249764:AAHW_JtlsSi372LD2GltGfe41cuImhgnZqE"
 MANAGER_CHAT_ID = 8046596311  
+
+# Инициализация бота 
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
@@ -350,7 +352,7 @@ async def web_server():
     await site.start()
 
 async def main():
-    print("Бот shop_render запущен на Render...")
+    print("Бот shop_pro запущен на Render...")
     asyncio.create_task(web_server())
     await dp.start_polling(bot)
 
