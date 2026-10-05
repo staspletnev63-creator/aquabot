@@ -340,7 +340,6 @@ async def manager_reply(message: types.Message):
     else:
         await message.reply("❌ <b>Помилка:</b> Не вдалося знайти ID кліента. Зробіть Reply на повідомлення сповіщення про клієнта.")
 
-# --- ФЕЙКОВЫЙ ВЕБ-СЕРВЕР ДЛЯ RENDER WEB SERVICE ---
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
@@ -354,10 +353,8 @@ async def web_server():
     await site.start()
 
 async def main():
-    print("Бот shop_pro запущен на Render...")
-    # Запускаем веб-сервер в фоне
+    print("Бот shop_render запущен на Render...")
     asyncio.create_task(web_server())
-    # Запускаем самого бота
     await dp.start_polling(bot)
 
 if __name__ == '__main__':
