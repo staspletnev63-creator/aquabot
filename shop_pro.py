@@ -2,6 +2,8 @@ import asyncio
 import re
 import html
 import sqlite3
+import os
+from aiohttp import web
 from aiogram import Bot, Dispatcher, F, types
 from aiogram.filters import CommandStart
 from aiogram.types import (
@@ -338,8 +340,24 @@ async def manager_reply(message: types.Message):
     else:
         await message.reply("❌ <b>Помилка:</b> Не вдалося знайти ID кліента. Зробіть Reply на повідомлення сповіщення про клієнта.")
 
+# --- ФЕЙКОВЫЙ ВЕБ-СЕРВЕР ДЛЯ RENDER WEB SERVICE ---
+async def handle_ping(request):
+    return web.Response(text="Bot is running!")
+
+async def web_server():
+    app = web.Application()
+    app.router.add_get('/', handle_ping)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    port = int(os.environ.get("PORT", 10000))
+    site = web.TCPSite(runner, '0.0.0.0', port)
+    await site.start()
+
 async def main():
-    print("Бот shop_pro запущен...")
+    print("Бот shop_pro запущен на Render...")
+    # Запускаем веб-сервер в фоне
+    asyncio.create_task(web_server())
+    # Запускаем самого бота
     await dp.start_polling(bot)
 
 if __name__ == '__main__':
